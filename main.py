@@ -16,10 +16,10 @@ app = Flask(__name__)       #Initialze flask constructor
 
 #Add your own details
 config = {
-  "apiKey": "AIzaSyC2-w7RxNuhj1gMhaL45DPEpGo6Rr8uesY",
-  "authDomain": "aeroforcast.firebaseapp.com",
-  "databaseURL": "https://aeroforcast-default-rtdb.firebaseio.com",
-  "storageBucket": "aeroforcast.appspot.com",
+  "apiKey": "your api key",
+  "authDomain": "your outh domain",
+  "databaseURL": "your database URL",
+  "storageBucket": "your storage bucket",
 }
 
 #initialize firebase
