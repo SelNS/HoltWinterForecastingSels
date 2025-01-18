@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forecast Table</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="formContent">
+            <h1>Forecast Table</h1>
+            <div class="table-container">
+                {{tables|safe}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

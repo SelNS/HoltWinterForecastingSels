@@ -1,0 +1,72 @@
+body{
+	margin: 0;
+	background-color:  #e0e0e0;
+}
+
+.name{
+	font-size: 300%;
+	font-family: monospace;
+}
+
+.email{
+	font-size: 150%;
+	color: #404040;
+	font-family: monospace;
+}
+
+/* Style the sidebar */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #2eea54;
+    padding-top: 20px;
+}
+
+/* Navbar links */
+.sidebar a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+/* On hover, the links will change color */
+.sidebar a:hover {
+    background-color:  #2eea54;
+}
+
+/* Main content */
+.content {
+    margin-left: 200px;
+    padding: 20px;
+	text-align: center;
+	background-color: #e0e0e0;
+}
+
+.sensor {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.progress-bar {
+    margin-bottom: 10px;
+    height: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #4caf50;
+    width: 0;
+    transition: width 0.5s ease-in-out;
+}

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'dasboard.css')}}">
+        <link rel="stylesheet" type="text/css" href="../static/dasboard.css">
+        <title>Dashboard</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    </head>
+<body>
+    <section id="sidebar">
+        <div class="white-label">
+            <h1 class="name" style="display: flex; justify-content: center; align-items: center; color: white">AeroHW</h1></br>
+        </div>
+        <div id="sidebar-nav">
+            <ul>
+                <li class="active"><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+                <li><a href="#" onclick="showSection('sensor-report')">Sensor Report</a></li>
+                <li><a href="http://127.0.0.1:5000/forcastTable" onclick="showSection('chart-report')">Table Sensor Report</a></li>
+            </ul>
+        </div>
+    </section>
+    <section id="content">
+        <div id="header">
+            <div class="header-nav">
+                <div class="nav">
+                    <ul>
+                        <li>
+                            <div>
+                                <a href="/logout">Logout</a>
+                            </div>
+                        </li>
+                        <li class="nav-profile">
+                            <div class="nav-profile-image">
+                                <img src="{{ url_for('static', filename = 'user.png') }}" alt="User Icon" />
+                                <div class="nav-profile-name">
+                                    {{name}}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-header"id="dashboard">
+                <h1>Dashboard</h1>
+                <p>Forecasting Data Sensor Dashboard.</p>
+            </div>
+            <div class="widget-box sample-widget one" id="sensor-report">
+                <div class="widget-header">
+                    <h2>Sensor Report </h2>
+                    <div class="content sensor">
+                        <table align="center" style="width:600px;">
+                            <tr>
+                                <td align="center" style="width:400px">
+                                    <div class="progress-bar" id="date">
+                                        <h4>Datetime: </br> <span id="predictionTDS">{{ date }}</span></h4>
+                                    </div>
+                                </td>
+                                <td align="center" style="width:150px">
+                                    <div class="progress-bar" id="sensorTDS">
+                                        <h4>TDS: <span id="predictionTDS">{{ predictionTDS }}</span></h4>
+                                        <h4>Status: <span id="satTDS">{{ satTDS }}</span></h4>
+                                    </div>
+                                </td>
+                                <td align="center" style="width:150px">
+                                    <div class="progress-bar" id="sensorTemp">
+                                        <h4>Temp: <span id="predictionTemp">{{ predictionTemp }}</span></h4>
+                                        <h4>Status: <span id="satTemp">{{ satTemp }}</span></h4>
+                                    </div>
+                                </td>
+                                <td align="center" style="width:150px">
+                                    <div class="progress-bar" id="sensorpH">
+                                        <h4>pH: <span id="predictionpH">{{ predictionpH }}</span></h4>
+                                        <h4>Status: <span id="satpH">{{ satpH }}</span></h4>
+                                    </div>
+                                </td>
+                                <td align="center" style="width:150px">
+                                    <div class="progress-bar" id="sensorHum">
+                                        <h4>Hum: <span id="predictionHum">{{ predictionHum }}</span></h4>
+                                        <h4>Status: <span id="satHum">{{ satHum }}</span></h4>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box sample-widget two" id="chart-report">
+                <div class="widget-header">
+                    <h2>Chart Report</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-content">
+                        <form id="dateForm">
+                            <label for="startDateTime">Start Date and Time:</label>
+                            <input type="datetime-local" id="startDateTime" name="startDateTime" value="{{ current_time }}">
+                            <br>
+                            <label for="endDateTime">End Date and Time:</label>
+                            <input type="datetime-local" id="endDateTime" name="endDateTime" value="{{ current_time }}">
+                            <br>
+                            <button type="button" href="http://127.0.0.1:5000/forcastTable" onclick="submitDates()">Submit</button>
+                        </form>
+                        <button onclick="showPlot('plotTDS')" style="color: white;background-color: #1c4230;">Show TDS Plot</button>
+                        <button onclick="showPlot('plotTemp')" style="color: white;background-color: #1c4230;">Show Temperature Plot</button>
+                        <button onclick="showPlot('plotpH')" style="color: white;background-color: #1c4230;">Show pH Plot</button>
+                        <button onclick="showPlot('plotHum')" style="color: white;background-color: #1c4230;">Show Humidity Plot</button>
+                        <div id="plotTDS" class="plot">
+                            <img src="{{ url_for('static', filename='plotTDS.png') }}" alt="TDS Plot" style="width: 70%">
+                        </div>
+                        <div id="plotTemp" class="plot">
+                            <img src="{{ url_for('static', filename='plotTemp.png') }}" alt="Temperature Plot" style="width: 70%">
+                        </div>
+                        <div id="plotpH" class="plot">
+                            <img src="{{ url_for('static', filename='plotpH.png') }}" alt="pH Plot" style="width: 70%">
+                        </div>
+                        <div id="plotHum" class="plot">
+                            <img src="{{ url_for('static', filename='plotHum.png') }}" alt="Humidity Plot" style="width: 70%">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function showPlot(plotId) {
+            // Hide all plots
+            var plots = document.querySelectorAll('.plot');
+            plots.forEach(function(plot) {
+                plot.style.display = 'none';
+            });
+            // Show the selected plot
+            document.getElementById(plotId).style.display = 'block';
+        }
+
+        function submitDates() {
+            var startDateTime = $('#startDateTime').val();
+            var endDateTime = $('#endDateTime').val();
+            // Format the dates using moment.js
+            var formattedStartDateTime = moment(startDateTime).format('DD/MM/YYYY HH:mm:ss');
+            var formattedEndDateTime = moment(endDateTime).format('DD/MM/YYYY HH:mm:ss');
+
+            $.ajax({
+                type: "POST",
+                url: "/submit_dates",
+                data: JSON.stringify({
+                    start_date: formattedStartDateTime,
+                    end_date: formattedEndDateTime
+                }),
+                contentType: "application/json",
+                success: function(response) {
+                    alert("Dates submitted successfully!");
+                    // Optionally, reload the plots or update the UI
+                },
+                error: function(error) {
+                    alert("Error submitting dates: " + error);
+                }
+            });
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            var sections = document.querySelectorAll('.content-section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update active state on the navigation
+            var navLinks = document.querySelectorAll('#sidebar-nav li');
+            navLinks.forEach(function(navLink) {
+                navLink.classList.remove('active');
+            });
+            document.querySelector(`#sidebar-nav li a[href='#'][onclick="showSection('${sectionId}')"]`).parentElement.classList.add('active');
+        }
+
+            function getSensorClass(value, type) {
+                if (type === 'TDS') {
+                    if (value > 1200) {
+                        return 'high';
+                    } else if (value >= 800 && value <= 1200) {
+                        return 'optimal';
+                    } else {
+                        return 'low';
+                    }
+                } else if (type === 'Temp') {
+                    if (value > 29) {
+                        return 'high';
+                    } else if (value >= 18 && value <= 29) {
+                        return 'optimal';
+                    } else {
+                        return 'low';
+                    }
+                } else if (type === 'pH') {
+                    if (value > 6.5) {
+                        return 'high';
+                    } else if (value >= 5.5 && value <= 6.5) {
+                        return 'optimal';
+                    } else {
+                        return 'low';
+                    }
+                } else if (type === 'Hum') {
+                    if (value > 80) {
+                        return 'high';
+                    } else if (value >= 60 && value <= 80) {
+                        return 'optimal';
+                    } else {
+                        return 'low';
+                    }
+                }
+            }
+            function applySensorClasses() {
+                const sensors = [
+                    { id: 'sensorTDS', value: parseFloat('{{ predictionTDS }}'), type: 'TDS' },
+                    { id: 'sensorTemp', value: parseFloat('{{ predictionTemp }}'), type: 'Temp' },
+                    { id: 'sensorpH', value: parseFloat('{{ predictionpH }}'), type: 'pH' },
+                    { id: 'sensorHum', value: parseFloat('{{ predictionHum }}'), type: 'Hum' }
+                ];
+                sensors.forEach(sensor => {
+                    const sensorElement = document.getElementById(sensor.id);
+                    const sensorClass = getSensorClass(sensor.value, sensor.type);
+                    sensorElement.classList.add(sensorClass);
+                });
+            }
+            window.onload = applySensorClasses;
+    </script>
+</body>
+</html>
